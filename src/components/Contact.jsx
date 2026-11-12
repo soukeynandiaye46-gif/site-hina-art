@@ -47,7 +47,7 @@ function mailtoHref(values) {
   return `mailto:${contactDetails.email}?subject=${subject}&body=${body}`
 }
 
-export default function Contact({ orderToken }) {
+export default function Contact({ orderToken, orderMessage }) {
   const [values, setValues] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [readyHref, setReadyHref] = useState('')
@@ -58,11 +58,14 @@ export default function Contact({ orderToken }) {
     setValues((current) => ({
       ...current,
       subject: current.subject.trim() ? current.subject : 'Commande d’une création',
+      message: orderMessage || current.message,
     }))
-    window.setTimeout(() => {
-      document.getElementById('subject')?.focus()
+    setErrors({})
+    const timer = window.setTimeout(() => {
+      document.getElementById(orderMessage ? 'message' : 'subject')?.focus()
     }, 450)
-  }, [orderToken])
+    return () => window.clearTimeout(timer)
+  }, [orderToken, orderMessage])
 
   function update(event) {
     const { name, value } = event.target

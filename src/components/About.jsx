@@ -4,9 +4,9 @@ export default function About() {
       <div className="mx-auto grid max-w-[1440px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <figure className="relative">
           <img
-            src="/images/about.jpg"
-            alt="Pinceaux couverts de pigments, posés sur une table d’atelier"
-            className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
+            src="/images/imgpropos.jpeg"
+            alt="L’artiste en train de peindre dans son atelier"
+            className="h-auto w-full object-contain"
           />
           <figcaption className="mt-4 text-[11px] uppercase tracking-[0.28em] text-black/45">
             L’atelier — matière et geste

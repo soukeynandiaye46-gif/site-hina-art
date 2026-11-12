@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { IconArrow } from './Icons'
+import { formatPrice } from '../data/site'
 
-export default function Lightbox({ works, index, onClose, onChange }) {
+export default function Lightbox({ works, index, onClose, onChange, cart, onAddToCart, onOpenCart }) {
   const closeRef = useRef(null)
   const work = works[index]
 
@@ -27,7 +28,7 @@ export default function Lightbox({ works, index, onClose, onChange }) {
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-black/92 px-4 py-8 text-white"
+      className="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto bg-black/95 px-4 py-8 text-white"
       role="dialog"
       aria-modal="true"
       aria-label={work.title}
@@ -54,16 +55,37 @@ export default function Lightbox({ works, index, onClose, onChange }) {
         <IconArrow direction="left" />
       </button>
 
-      <figure className="flex max-h-full w-full max-w-5xl flex-col items-center" onClick={(event) => event.stopPropagation()}>
-        <img src={work.src} alt={work.alt} className="max-h-[74vh] w-auto max-w-full object-contain" />
-        <figcaption className="mt-5 flex w-full max-w-3xl items-baseline justify-between gap-6 px-2 text-left">
-          <div>
+      <figure className="flex w-full max-w-5xl flex-col items-center py-8" onClick={(event) => event.stopPropagation()}>
+        <img src={work.src} alt={work.alt} className="max-h-[52vh] w-auto max-w-full object-contain sm:max-h-[65vh]" />
+        <figcaption className="mt-5 flex w-full max-w-3xl flex-col gap-5 px-2 text-left sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <div className="min-w-0">
             <p className="font-serif text-2xl italic">{work.title}</p>
             <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-white/55">{work.medium}</p>
+            <p className="mt-3 max-w-2xl text-sm font-light leading-relaxed text-white/75">{work.description}</p>
           </div>
-          <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-            {String(index + 1).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
-          </p>
+          <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
+            <p className="font-serif text-xl">{formatPrice(work.price)}</p>
+            {cart.includes(work.src) ? (
+              <button
+                type="button"
+                onClick={onOpenCart}
+                className="border border-white/40 px-5 py-3 text-[10px] uppercase tracking-[0.18em] transition hover:bg-white hover:text-black"
+              >
+                Déjà dans le panier ✓
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onAddToCart(work.src)}
+                className="bg-white px-5 py-3 text-[10px] uppercase tracking-[0.18em] text-black transition hover:bg-white/80"
+              >
+                Ajouter au panier
+              </button>
+            )}
+            <p className="text-[10px] uppercase tracking-[0.2em] text-white/45">
+              {String(index + 1).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
+            </p>
+          </div>
         </figcaption>
       </figure>
 

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { galleryWorks } from '../data/site'
+import { formatPrice, galleryWorks } from '../data/site'
 import Lightbox from './Lightbox'
 
-export default function Gallery() {
+export default function Gallery({ cart, onAddToCart, onOpenCart }) {
   const [active, setActive] = useState(null)
 
   return (
@@ -30,12 +30,14 @@ export default function Gallery() {
                   <img
                     src={work.src}
                     alt={work.alt}
-                    className="aspect-[4/5] w-full object-cover transition duration-700 ease-out group-hover:scale-[1.06]"
+                    className="aspect-[4/5] w-full object-contain transition-opacity duration-700 ease-out group-hover:opacity-90"
                   />
                 </span>
                 <span className="mt-4 flex items-baseline justify-between gap-3">
                   <span className="font-serif text-xl italic text-black">{work.title}</span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-black/40">{work.medium}</span>
+                  <span className="text-right text-[10px] uppercase tracking-[0.16em] text-black/45">
+                    {formatPrice(work.price)}
+                  </span>
                 </span>
               </button>
             </li>
@@ -49,6 +51,12 @@ export default function Gallery() {
           index={active}
           onClose={() => setActive(null)}
           onChange={setActive}
+          cart={cart}
+          onAddToCart={onAddToCart}
+          onOpenCart={() => {
+            setActive(null)
+            onOpenCart()
+          }}
         />
       )}
     </section>

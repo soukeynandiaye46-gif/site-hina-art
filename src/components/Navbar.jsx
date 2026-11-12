@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { navLinks } from '../data/site'
+import { IconBag } from './Icons'
 
 const sectionIds = navLinks.map((link) => link.id)
 
-export default function Navbar({ onOrder }) {
+export default function Navbar({ onOrder, cartCount, onOpenCart }) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('accueil')
 
@@ -93,8 +94,21 @@ export default function Navbar({ onOrder }) {
         <div className="relative z-10 flex items-center gap-3 sm:gap-4">
           <button
             type="button"
+            onClick={onOpenCart}
+            aria-label={`Ouvrir le panier, ${cartCount} article${cartCount > 1 ? 's' : ''}`}
+            className="relative flex h-10 w-10 items-center justify-center transition hover:text-white/70"
+          >
+            <IconBag />
+            {cartCount > 0 && (
+              <span className="absolute right-0 top-0 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-white px-1 text-[10px] font-medium text-black">
+                {cartCount}
+              </span>
+            )}
+          </button>
+          <button
+            type="button"
             onClick={order}
-            className="border border-white px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] transition duration-300 hover:bg-white hover:text-black sm:px-5"
+            className="hidden border border-white px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] transition duration-300 hover:bg-white hover:text-black sm:inline-flex sm:px-5"
           >
             Commander
           </button>

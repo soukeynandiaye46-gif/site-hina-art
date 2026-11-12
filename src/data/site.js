@@ -50,54 +50,74 @@ export const heroSlides = [
 
 export const galleryWorks = [
   {
-    src: '/images/gallery-1.jpg',
+    src: '/images/image2.jpeg',
     title: 'Le chemin clair',
     medium: 'Paysage',
-    alt: 'Paysage verdoyant avec un troupeau le long d’un chemin de village',
+    alt: 'Composition abstraite avec des bandes blanches, noires, ocre et rouges',
+    description: 'Une promenade silencieuse où le vert des collines accompagne le mouvement paisible du troupeau.',
+    price: 180000,
   },
   {
-    src: '/images/gallery-2.jpg',
+    src: '/images/image3.jpeg',
     title: 'Nuit ouverte',
     medium: 'Acrylique',
-    alt: 'Peinture abstraite bleu nuit traversée de traits orange et rouges',
+    alt: 'Figure assise aux formes stylisées sur un fond rouge, bleu et blanc',
+    description: 'Des éclats chauds traversent un bleu profond, comme les dernières lumières d’une ville à la nuit tombée.',
+    price: 220000,
   },
   {
-    src: '/images/gallery-3.jpg',
+    src: '/images/image4.jpeg',
     title: 'Veine pourpre',
     medium: 'Encre fluide',
-    alt: 'Composition fluide aux volutes magenta, violettes et blanches',
+    alt: 'Silhouette aux bras ouverts sur un fond coloré bleu, vert et orange',
+    description: 'Des encres en mouvement dessinent des courants imprévisibles entre transparence et intensité.',
+    price: 160000,
   },
   {
-    src: '/images/gallery-4.jpg',
+    src: '/images/image5.jpeg',
     title: 'Le lac haut',
     medium: 'Aquarelle',
-    alt: 'Paysage de montagne, lac et cerf au premier plan',
+    alt: 'Figure stylisée aux tons clairs sur un fond bleu, jaune et vert',
+    description: 'Au bord d’un lac d’altitude, une présence discrète révèle la quiétude d’un paysage préservé.',
+    price: 195000,
   },
   {
-    src: '/images/gallery-5.jpg',
+    src: '/images/image6.jpeg',
     title: 'Salle blanche',
     medium: 'Espace',
-    alt: 'Grande salle d’exposition blanche avec des œuvres accrochées',
+    alt: 'Silhouette assise aux motifs colorés sur un fond orange',
+    description: 'Un espace ouvert où la lumière relie les œuvres et invite à prendre le temps de les regarder.',
+    price: 250000,
   },
   {
-    src: '/images/gallery-6.jpg',
+    src: '/images/hina-acceuil-1.jpeg',
     title: 'Or et bitume',
     medium: 'Mixte',
-    alt: 'Peinture fluide jaune, noire et blanche aux motifs organiques',
+    alt: 'Visages stylisés sur un fond rouge et orange',
+    description: 'L’or lumineux et le noir profond se rencontrent dans une composition organique, libre et contrastée.',
+    price: 210000,
   },
   {
-    src: '/images/gallery-7.jpg',
+    src: '/images/hina-acceuil-2.jpeg',
     title: 'Deux silences',
     medium: 'Dessin',
-    alt: 'Illustration de deux oiseaux posés sur une liane fleurie',
+    alt: 'Portrait peint d’une femme portant un turban sur un fond jaune',
+    description: 'Deux oiseaux se répondent dans un dessin délicat, suspendus au calme d’une branche fleurie.',
+    price: 145000,
   },
   {
-    src: '/images/gallery-8.jpg',
+    src: '/images/hina-acceuil-3.jpeg',
     title: 'Le geste',
     medium: 'Atelier',
-    alt: 'Pinceaux chargés de peinture rouge et jaune sur une toile orangée',
+    alt: 'Main noire portant un globe au-dessus d’une ville, sur un fond rouge et bleu',
+    description: 'La trace des pinceaux et la chaleur des pigments racontent l’énergie du travail en atelier.',
+    price: 175000,
   },
 ]
+
+export function formatPrice(price) {
+  return `${new Intl.NumberFormat('fr-FR').format(price)} FCFA`
+}
 
 export const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/' },
