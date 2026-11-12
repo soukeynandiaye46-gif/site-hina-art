@@ -35,16 +35,16 @@ export const navLinks = [
 
 export const heroSlides = [
   {
-    src: '/images/hero-1.jpg',
-    alt: 'Détail d’une toile abstraite aux pigments jaune, rouge et turquoise',
+    src: '/images/hina-accueil-1.jpeg',
+    alt: 'Tableau aux visages stylisés sur un fond rouge et orange',
   },
   {
-    src: '/images/hero-2.jpg',
-    alt: 'Nature morte florale sur fond sombre, bouquet dans un vase ancien',
+    src: '/images/hina-accueil-2.jpeg',
+    alt: 'Portrait peint d’une femme sur fond jaune',
   },
   {
-    src: '/images/hero-3.jpg',
-    alt: 'Portrait peint en gros plan, regard frontal sur fond coloré',
+    src: '/images/hina-accueil-3.jpeg',
+    alt: 'Main noire portant un globe au-dessus d’une ville sur fond rouge et bleu',
   },
 ]
 
