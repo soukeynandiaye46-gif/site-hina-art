@@ -3,7 +3,7 @@ import { SocialIcon } from './Icons'
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-5 pb-10 pt-16 text-white sm:px-8">
+    <footer className="bg-[#141414] px-5 pb-10 pt-16 text-white sm:px-8">
       <div className="mx-auto grid max-w-[1440px] gap-12 border-t border-white/15 pt-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <p className="font-serif text-4xl">

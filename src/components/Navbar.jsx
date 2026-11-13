@@ -50,7 +50,7 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-black text-white">
+    <header className="fixed inset-x-0 top-0 z-50 bg-[#141414] text-white">
       <div className="relative mx-auto flex h-[4.75rem] max-w-[1440px] items-center justify-between px-5 sm:px-8">
         <a
           href="#accueil"

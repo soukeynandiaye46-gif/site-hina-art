@@ -56,7 +56,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-[#141414] text-black">
       <Navbar
         onOrder={order}
         cartCount={cart.length}

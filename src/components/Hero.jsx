@@ -48,7 +48,7 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className="relative h-[100svh] min-h-[640px] overflow-hidden bg-black text-white"
+      className="w-full h-[85vh] relative overflow-hidden bg-[#141414] text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
@@ -57,20 +57,31 @@ export default function Hero() {
       aria-label="Sélection HINA Art"
     >
       {heroSlides.map((slide, slideIndex) => (
-        <img
+        <div
           key={slide.src}
-          src={slide.src}
-          alt={slide.alt}
-          className={`absolute inset-0 h-full w-full object-contain ${
+          aria-hidden={slideIndex !== index}
+          className={`absolute inset-0 flex h-full w-full items-center justify-center ${
             reduced ? '' : 'transition-opacity duration-1000 ease-in-out'
           } ${slideIndex === index ? 'opacity-100' : 'opacity-0'}`}
-        />
+        >
+          <img
+            src={slide.src}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40 pointer-events-none"
+          />
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            className="relative z-10 h-full w-auto max-w-full mx-auto object-contain shadow-2xl"
+          />
+        </div>
       ))}
 
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/35" />
+      <div className="absolute inset-0 z-10 bg-black/40" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-black/20 to-black/35" />
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 text-center">
         <div className="relative isolate flex flex-col items-center px-4 py-4 before:absolute before:inset-0 before:-z-10 before:bg-black/25 before:blur-xl before:content-['']">
           <p className="text-[11px] uppercase tracking-[0.42em] text-white/80">Atelier contemporain</p>
           <h1 className="mt-6 font-serif text-6xl font-medium leading-none tracking-[0.08em] sm:text-7xl md:text-8xl">
@@ -92,7 +103,7 @@ export default function Hero() {
       <button
         type="button"
         onClick={() => go(index - 1)}
-        className="absolute left-4 top-[70%] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/50 bg-black/20 text-white backdrop-blur-sm transition hover:bg-white hover:text-black sm:left-8 sm:top-1/2"
+        className="absolute left-4 top-[70%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/70 sm:left-8 sm:top-1/2"
         aria-label="Image précédente"
       >
         <IconArrow direction="left" />
@@ -100,13 +111,13 @@ export default function Hero() {
       <button
         type="button"
         onClick={() => go(index + 1)}
-        className="absolute right-4 top-[70%] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/50 bg-black/20 text-white backdrop-blur-sm transition hover:bg-white hover:text-black sm:right-8 sm:top-1/2"
+        className="absolute right-4 top-[70%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/70 sm:right-8 sm:top-1/2"
         aria-label="Image suivante"
       >
         <IconArrow direction="right" />
       </button>
 
-      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3">
+      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3">
         {heroSlides.map((slide, slideIndex) => (
           <button
             key={slide.src}

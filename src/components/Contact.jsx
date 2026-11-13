@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { contactDetails, socials, whatsapp, whatsappUrl } from '../data/site'
 import { SocialIcon } from './Icons'
+import SectionHeader from './SectionHeader'
 
 const emptyForm = {
   name: '',
@@ -96,25 +97,24 @@ export default function Contact({ orderToken, orderMessage }) {
   )
 
   return (
-    <section id="contact" className="bg-black px-5 py-24 text-white sm:px-8 sm:py-32">
-      <div className="mx-auto grid max-w-[1440px] gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
-        <div>
-          <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">03 — L’atelier</p>
-          <h2 className="mt-4 font-serif text-5xl font-medium leading-none sm:text-6xl">Contactez-nous</h2>
-          <p className="mt-6 max-w-lg text-sm font-light leading-relaxed text-white/70">
-            Une question, une visite, une commande. Écrivez à l’atelier : le formulaire prépare
-            votre message et l’ouvre dans votre messagerie. Rien n’est envoyé automatiquement.
-          </p>
+    <section id="contact" className="bg-[#141414] px-5 py-24 text-white sm:px-8 sm:py-32">
+      <SectionHeader title="Contactez-nous" inverted />
+      <p className="mx-auto mb-12 max-w-xl text-center text-sm font-light leading-relaxed text-white/70">
+        Une question, une visite, une commande. Écrivez à l’atelier : le formulaire prépare
+        votre message et l’ouvre dans votre messagerie. Rien n’est envoyé automatiquement.
+      </p>
 
+      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
+        <div>
           {orderToken > 0 && (
-            <p className="mt-8 border border-white/20 px-5 py-4 text-sm font-light leading-relaxed text-white/85">
+            <p className="mb-8 border border-white/20 px-5 py-4 text-sm font-light leading-relaxed text-white/85">
               Vous souhaitez commander. Décrivez le format, la pièce ou l’ambiance recherchée :
               l’atelier vous répondra pour préciser le devis.
             </p>
           )}
 
           {readyHref ? (
-            <div className="mt-12 border border-white/20 px-6 py-8" role="status">
+            <div className="border border-white/20 px-6 py-8" role="status">
               <p className="font-serif text-3xl italic">Votre message est prêt.</p>
               <p className="mt-4 max-w-lg text-sm font-light leading-relaxed text-white/75">
                 Votre application de messagerie s’ouvre avec le texte déjà rédigé. HINA Art
@@ -136,7 +136,7 @@ export default function Contact({ orderToken, orderMessage }) {
               </button>
             </div>
           ) : (
-            <form className="mt-12 space-y-7" onSubmit={submit} noValidate>
+            <form className="space-y-7" onSubmit={submit} noValidate>
               {fields.map((field) => (
                 <label key={field.name} className="block" htmlFor={field.name}>
                   <span className="text-[11px] uppercase tracking-[0.22em] text-white/50">{field.label}</span>

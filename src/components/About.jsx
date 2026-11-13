@@ -1,7 +1,10 @@
+import SectionHeader from './SectionHeader'
+
 export default function About() {
   return (
     <section id="a-propos" className="bg-[#f4f4f4] px-5 py-24 sm:px-8 sm:py-32">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <SectionHeader title="À propos de HINA Art" />
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <figure className="relative">
           <img
             src="/images/imgpropos.jpeg"
@@ -14,11 +17,7 @@ export default function About() {
         </figure>
 
         <div className="max-w-xl lg:py-6">
-          <p className="text-[11px] uppercase tracking-[0.32em] text-black/45">01 — La maison</p>
-          <h2 className="mt-5 font-serif text-5xl font-medium leading-[1.05] text-black sm:text-6xl">
-            À propos de HINA Art
-          </h2>
-          <div className="mt-8 space-y-5 text-[15px] font-light leading-relaxed text-black/75">
+          <div className="space-y-5 text-[15px] font-light leading-relaxed text-black/75">
             <p>
               HINA Art est une maison de création dédiée aux pièces pensées pour durer.
               Nous travaillons la couleur, la matière et le calme des surfaces afin que
