@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
-import { heroSlides } from '../data/site'
+import { useArtContext } from '../context/ArtContext'
 import { IconArrow } from './Icons'
 
-const INTERVAL = 6000
+const INTERVAL = 3500
 
 export default function Hero() {
+  const { heroSlides } = useArtContext()
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [reduced, setReduced] = useState(false)
+  const [zoomedIndex, setZoomedIndex] = useState(-1)
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -16,6 +18,12 @@ export default function Hero() {
     media.addEventListener('change', update)
     return () => media.removeEventListener('change', update)
   }, [])
+
+  useEffect(() => {
+    if (reduced) return undefined
+    const frame = window.requestAnimationFrame(() => setZoomedIndex(index))
+    return () => window.cancelAnimationFrame(frame)
+  }, [index, reduced])
 
   useEffect(() => {
     if (paused || reduced) return undefined
@@ -48,7 +56,7 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className="w-full h-[85vh] relative overflow-hidden bg-[#141414] text-white"
+      className="relative h-[calc(78vh_+_7.75rem)] w-full overflow-hidden bg-[#F5F5F5] text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
@@ -56,39 +64,74 @@ export default function Hero() {
       aria-roledescription="carrousel"
       aria-label="Sélection HINA Art"
     >
-      {heroSlides.map((slide, slideIndex) => (
-        <div
-          key={slide.src}
-          aria-hidden={slideIndex !== index}
-          className={`absolute inset-0 flex h-full w-full items-center justify-center ${
-            reduced ? '' : 'transition-opacity duration-1000 ease-in-out'
-          } ${slideIndex === index ? 'opacity-100' : 'opacity-0'}`}
+      <div className="absolute inset-x-0 bottom-0 top-[4.75rem] z-10">
+        {heroSlides.map((slide, slideIndex) => (
+          <div
+            key={slide.src}
+            aria-hidden={slideIndex !== index}
+            className={`absolute inset-0 flex items-center justify-center ${
+              reduced ? '' : 'transition-opacity duration-600 ease-in-out'
+            } ${slideIndex === index ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <div className="relative my-6 h-[78vh] w-[94%] overflow-hidden shadow-2xl">
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                className={`h-full w-full object-cover object-center transition-transform duration-[4000ms] ease-linear ${
+                  slideIndex === index && zoomedIndex === slideIndex && !reduced
+                    ? 'scale-105'
+                    : 'scale-100'
+                }`}
+              />
+              <div className="absolute inset-0 z-10 bg-black/35" />
+            </div>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={() => go(index - 1)}
+          className="absolute left-[3%] top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/40 bg-black/35 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/55"
+          aria-label="Image précédente"
         >
-          <img
-            src={slide.src}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40 pointer-events-none"
-          />
-          <img
-            src={slide.src}
-            alt={slide.alt}
-            className="relative z-10 h-full w-auto max-w-full mx-auto object-contain shadow-2xl"
-          />
+          <IconArrow direction="left" />
+        </button>
+        <button
+          type="button"
+          onClick={() => go(index + 1)}
+          className="absolute right-[3%] top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/40 bg-black/35 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/55"
+          aria-label="Image suivante"
+        >
+          <IconArrow direction="right" />
+        </button>
+
+        <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3">
+          {heroSlides.map((slide, slideIndex) => (
+            <button
+              key={slide.src}
+              type="button"
+              aria-label={`Afficher l’image ${slideIndex + 1}`}
+              aria-current={slideIndex === index ? 'true' : undefined}
+              onClick={() => go(slideIndex)}
+              className={`h-px transition-all duration-300 ${
+                slideIndex === index ? 'w-10 bg-white' : 'w-6 bg-white/45 hover:bg-white/80'
+              }`}
+            />
+          ))}
         </div>
-      ))}
+      </div>
 
-      <div className="absolute inset-0 z-10 bg-black/40" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-black/20 to-black/35" />
-
-      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 text-center">
-        <div className="relative isolate flex flex-col items-center px-4 py-4 before:absolute before:inset-0 before:-z-10 before:bg-black/25 before:blur-xl before:content-['']">
+      <div className="absolute inset-x-0 bottom-0 top-[4.75rem] z-20 flex flex-col items-center justify-center px-6 py-12 text-center">
+        <div className="relative flex flex-col items-center px-4 py-4">
           <p className="text-[11px] uppercase tracking-[0.42em] text-white/80">Atelier contemporain</p>
           <h1 className="mt-6 font-serif text-6xl font-medium leading-none tracking-[0.08em] sm:text-7xl md:text-8xl">
             HINA <span className="italic tracking-normal">Art</span>
           </h1>
-          <p className="mt-6 max-w-md text-base font-light leading-relaxed text-white/90 sm:text-lg">
-            Des créations originales, composées pour habiter la lumière et le silence d’un lieu.
+          <p className="mt-5 font-serif text-2xl italic text-white/95">
+            {heroSlides[index]?.title}
+          </p>
+          <p className="mt-2 max-w-md text-sm font-light leading-relaxed text-white/80 sm:text-base">
+            {heroSlides[index]?.caption}
           </p>
           <a
             href="#gallery"
@@ -98,38 +141,6 @@ export default function Hero() {
             Découvrir nos créations
           </a>
         </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => go(index - 1)}
-        className="absolute left-4 top-[70%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/70 sm:left-8 sm:top-1/2"
-        aria-label="Image précédente"
-      >
-        <IconArrow direction="left" />
-      </button>
-      <button
-        type="button"
-        onClick={() => go(index + 1)}
-        className="absolute right-4 top-[70%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/70 sm:right-8 sm:top-1/2"
-        aria-label="Image suivante"
-      >
-        <IconArrow direction="right" />
-      </button>
-
-      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3">
-        {heroSlides.map((slide, slideIndex) => (
-          <button
-            key={slide.src}
-            type="button"
-            aria-label={`Afficher l’image ${slideIndex + 1}`}
-            aria-current={slideIndex === index ? 'true' : undefined}
-            onClick={() => go(slideIndex)}
-            className={`h-px transition-all duration-300 ${
-              slideIndex === index ? 'w-10 bg-white' : 'w-6 bg-white/45 hover:bg-white/80'
-            }`}
-          />
-        ))}
       </div>
     </section>
   )

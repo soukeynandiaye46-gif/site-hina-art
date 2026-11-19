@@ -31,4 +31,28 @@
   html {
     scroll-behavior: auto;
   }
+
+  @media print {
+    body * {
+      visibility: hidden !important;
+    }
+
+    .certificate-print-surface,
+    .certificate-print-surface * {
+      visibility: visible !important;
+    }
+
+    .certificate-print-surface {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100% !important;
+      background: #f5f2ea !important;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .certificate-controls {
+      display: none !important;
+    }
+  }
 }

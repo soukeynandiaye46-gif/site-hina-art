@@ -65,7 +65,11 @@ export default function Lightbox({ works, index, onClose, onChange, cart, onAddT
           </div>
           <div className="flex shrink-0 flex-col items-start gap-3 sm:items-end">
             <p className="font-serif text-xl">{formatPrice(work.price)}</p>
-            {cart.includes(work.src) ? (
+            {work.status !== 'Disponible' ? (
+              <p className="border border-white/25 px-5 py-3 text-[10px] uppercase tracking-[0.18em] text-white/65">
+                {work.status === 'Vendue' ? 'Œuvre vendue' : 'Œuvre réservée'}
+              </p>
+            ) : cart.includes(work.src) ? (
               <button
                 type="button"
                 onClick={onOpenCart}

@@ -99,7 +99,7 @@ export default function Contact({ orderToken, orderMessage }) {
   return (
     <section id="contact" className="bg-[#141414] px-5 py-24 text-white sm:px-8 sm:py-32">
       <SectionHeader title="Contactez-nous" inverted />
-      <p className="mx-auto mb-12 max-w-xl text-center text-sm font-light leading-relaxed text-white/70">
+      <p className="max-w-xl mx-auto mb-12 text-sm font-light leading-relaxed text-center text-white/70">
         Une question, une visite, une commande. Écrivez à l’atelier : le formulaire prépare
         votre message et l’ouvre dans votre messagerie. Rien n’est envoyé automatiquement.
       </p>
@@ -107,16 +107,16 @@ export default function Contact({ orderToken, orderMessage }) {
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
         <div>
           {orderToken > 0 && (
-            <p className="mb-8 border border-white/20 px-5 py-4 text-sm font-light leading-relaxed text-white/85">
+            <p className="px-5 py-4 mb-8 text-sm font-light leading-relaxed border border-white/20 text-white/85">
               Vous souhaitez commander. Décrivez le format, la pièce ou l’ambiance recherchée :
               l’atelier vous répondra pour préciser le devis.
             </p>
           )}
 
           {readyHref ? (
-            <div className="border border-white/20 px-6 py-8" role="status">
+            <div className="px-6 py-8 border border-white/20" role="status">
               <p className="font-serif text-3xl italic">Votre message est prêt.</p>
-              <p className="mt-4 max-w-lg text-sm font-light leading-relaxed text-white/75">
+              <p className="max-w-lg mt-4 text-sm font-light leading-relaxed text-white/75">
                 Votre application de messagerie s’ouvre avec le texte déjà rédigé. HINA Art
                 n’a pas de serveur de réception configuré : le message part uniquement depuis
                 votre adresse, lorsque vous l’envoyez.
@@ -149,10 +149,10 @@ export default function Contact({ orderToken, orderMessage }) {
                     onChange={update}
                     aria-invalid={Boolean(errors[field.name])}
                     aria-describedby={errors[field.name] ? `${field.name}-error` : undefined}
-                    className="mt-2 w-full border-b border-white/25 bg-transparent py-3 text-base text-white outline-none transition focus:border-white"
+                    className="w-full py-3 mt-2 text-base text-white transition bg-transparent border-b outline-none border-white/25 focus:border-white"
                   />
                   {errors[field.name] && (
-                    <span id={`${field.name}-error`} className="mt-2 block text-xs text-white/70">
+                    <span id={`${field.name}-error`} className="block mt-2 text-xs text-white/70">
                       {errors[field.name]}
                     </span>
                   )}
@@ -169,10 +169,10 @@ export default function Contact({ orderToken, orderMessage }) {
                   onChange={update}
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? 'message-error' : undefined}
-                  className="mt-2 w-full resize-y border-b border-white/25 bg-transparent py-3 text-base text-white outline-none transition focus:border-white"
+                  className="w-full py-3 mt-2 text-base text-white transition bg-transparent border-b outline-none resize-y border-white/25 focus:border-white"
                 />
                 {errors.message && (
-                  <span id="message-error" className="mt-2 block text-xs text-white/70">
+                  <span id="message-error" className="block mt-2 text-xs text-white/70">
                     {errors.message}
                   </span>
                 )}
@@ -188,11 +188,11 @@ export default function Contact({ orderToken, orderMessage }) {
           )}
         </div>
 
-        <aside className="flex flex-col justify-between border-t border-white/15 pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
+        <aside className="flex flex-col justify-between pt-10 border-t border-white/15 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
           <div className="space-y-10">
             <div>
               <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">Téléphone</p>
-              <a href={contactDetails.phoneHref} className="mt-3 block font-serif text-3xl italic transition hover:opacity-70">
+              <a href={contactDetails.phoneHref} className="block mt-3 font-serif text-3xl italic transition hover:opacity-70">
                 {contactDetails.phone}
               </a>
             </div>
@@ -200,7 +200,7 @@ export default function Contact({ orderToken, orderMessage }) {
               <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">E-mail</p>
               <a
                 href={`mailto:${contactDetails.email}`}
-                className="mt-3 block break-all font-serif text-3xl italic transition hover:opacity-70"
+                className="block mt-3 font-serif text-3xl italic break-all transition hover:opacity-70"
               >
                 {contactDetails.email}
               </a>
@@ -211,7 +211,7 @@ export default function Contact({ orderToken, orderMessage }) {
                 href={contactDetails.mapsHref}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 block font-serif text-3xl italic leading-snug transition hover:opacity-70"
+                className="block mt-3 font-serif text-3xl italic leading-snug transition hover:opacity-70"
               >
                 {contactDetails.address}
                 <br />
@@ -237,7 +237,7 @@ export default function Contact({ orderToken, orderMessage }) {
               </p>
             )}
 
-            <ul className="mt-8 flex gap-3">
+            <ul className="flex gap-3 mt-8">
               {socials.map((social) => (
                 <li key={social.label}>
                   <a
@@ -245,7 +245,7 @@ export default function Contact({ orderToken, orderMessage }) {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={social.label}
-                    className="flex h-11 w-11 items-center justify-center border border-white/25 transition hover:bg-white hover:text-black"
+                    className="flex items-center justify-center transition border h-11 w-11 border-white/25 hover:bg-white hover:text-black"
                   >
                     <SocialIcon label={social.label} />
                   </a>

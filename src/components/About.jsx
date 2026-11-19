@@ -5,18 +5,21 @@ export default function About() {
     <section id="a-propos" className="bg-[#f4f4f4] px-5 py-24 sm:px-8 sm:py-32">
       <SectionHeader title="À propos de HINA Art" />
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <figure className="relative">
+        <figure className="relative flex flex-col items-center">
           <img
             src="/images/imgpropos.jpeg"
             alt="L’artiste en train de peindre dans son atelier"
-            className="h-auto w-full object-contain"
+            className="mx-auto h-auto max-h-[520px] w-full max-w-md rounded-sm object-cover shadow-lg"
           />
           <figcaption className="mt-4 text-[11px] uppercase tracking-[0.28em] text-black/45">
             L’atelier — matière et geste
           </figcaption>
         </figure>
 
-        <div className="max-w-xl lg:py-6">
+        <div className="max-w-prose lg:py-6">
+          <p className="mb-4 text-xs uppercase tracking-[0.2em] text-neutral-500">
+            L’ATELIER &amp; LA VISION
+          </p>
           <div className="space-y-5 text-[15px] font-light leading-relaxed text-black/75">
             <p>
               HINA Art est une maison de création dédiée aux pièces pensées pour durer.
