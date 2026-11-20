@@ -4,11 +4,16 @@ import { IconBag } from './Icons'
 
 const sectionIds = navLinks.map((link) => link.id)
 
-export default function Navbar({ onOrder, cartCount, onOpenCart }) {
+export default function Navbar({ cartCount, isCartPage, onNavigate }) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('accueil')
 
   useEffect(() => {
+    if (isCartPage) {
+      setActive('')
+      return undefined
+    }
+
     const nodes = sectionIds
       .map((id) => document.getElementById(id))
       .filter(Boolean)
@@ -25,7 +30,7 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
 
     nodes.forEach((node) => observer.observe(node))
     return () => observer.disconnect()
-  }, [])
+  }, [isCartPage])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -36,17 +41,18 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
 
   function goTo(id) {
     setOpen(false)
+    if (isCartPage) {
+      onNavigate(`/#${id}`)
+      return
+    }
+
     const node = document.getElementById(id)
     if (id === 'accueil') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       return
     }
-    node?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
-  function order() {
-    setOpen(false)
-    onOrder()
+    if (node) node.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else onNavigate(`/#${id}`)
   }
 
   return (
@@ -69,7 +75,7 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
           aria-label="Navigation principale"
         >
           {navLinks.map((link) => {
-            const isActive = active === link.id
+            const isActive = !isCartPage && active === link.id
             return (
               <a
                 key={link.id}
@@ -94,8 +100,11 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
         <div className="relative z-10 flex items-center gap-3 sm:gap-4">
           <button
             type="button"
-            onClick={onOpenCart}
-            aria-label={`Ouvrir le panier, ${cartCount} article${cartCount > 1 ? 's' : ''}`}
+            onClick={() => {
+              setOpen(false)
+              onNavigate('/panier')
+            }}
+            aria-label={`Voir le panier, ${cartCount} article${cartCount > 1 ? 's' : ''}`}
             className="relative flex h-10 w-10 items-center justify-center transition hover:text-white/70"
           >
             <IconBag />
@@ -107,7 +116,10 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
           </button>
           <button
             type="button"
-            onClick={order}
+            onClick={() => {
+              setOpen(false)
+              onNavigate('/panier')
+            }}
             className="hidden border border-white px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] transition duration-300 hover:bg-white hover:text-black sm:inline-flex sm:px-5"
           >
             Commander
@@ -168,7 +180,10 @@ export default function Navbar({ onOrder, cartCount, onOpenCart }) {
           </ul>
           <button
             type="button"
-            onClick={order}
+            onClick={() => {
+              setOpen(false)
+              onNavigate('/panier')
+            }}
             className="w-full border border-white py-4 text-[12px] uppercase tracking-[0.24em]"
           >
             Commander

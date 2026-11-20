@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { contactDetails, socials, whatsapp, whatsappUrl } from '../data/site'
+import { useState } from 'react'
+import { contactDetails, socials } from '../data/site'
 import { SocialIcon } from './Icons'
 import SectionHeader from './SectionHeader'
 
@@ -48,25 +48,10 @@ function mailtoHref(values) {
   return `mailto:${contactDetails.email}?subject=${subject}&body=${body}`
 }
 
-export default function Contact({ orderToken, orderMessage }) {
+export default function Contact() {
   const [values, setValues] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [readyHref, setReadyHref] = useState('')
-
-  useEffect(() => {
-    if (!orderToken) return
-    setReadyHref('')
-    setValues((current) => ({
-      ...current,
-      subject: current.subject.trim() ? current.subject : 'Commande d’une création',
-      message: orderMessage || current.message,
-    }))
-    setErrors({})
-    const timer = window.setTimeout(() => {
-      document.getElementById(orderMessage ? 'message' : 'subject')?.focus()
-    }, 450)
-    return () => window.clearTimeout(timer)
-  }, [orderToken, orderMessage])
 
   function update(event) {
     const { name, value } = event.target
@@ -90,29 +75,16 @@ export default function Contact({ orderToken, orderMessage }) {
     window.location.href = href
   }
 
-  const orderLink = whatsappUrl(
-    values.message.trim()
-      ? `${whatsapp.message}\n\n${values.message.trim()}`
-      : whatsapp.message,
-  )
-
   return (
     <section id="contact" className="bg-[#141414] px-5 py-24 text-white sm:px-8 sm:py-32">
       <SectionHeader title="Contactez-nous" inverted />
       <p className="max-w-xl mx-auto mb-12 text-sm font-light leading-relaxed text-center text-white/70">
-        Une question, une visite, une commande. Écrivez à l’atelier : le formulaire prépare
+        Une question ou une visite ? Écrivez à l’atelier : le formulaire prépare
         votre message et l’ouvre dans votre messagerie. Rien n’est envoyé automatiquement.
       </p>
 
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
         <div>
-          {orderToken > 0 && (
-            <p className="px-5 py-4 mb-8 text-sm font-light leading-relaxed border border-white/20 text-white/85">
-              Vous souhaitez commander. Décrivez le format, la pièce ou l’ambiance recherchée :
-              l’atelier vous répondra pour préciser le devis.
-            </p>
-          )}
-
           {readyHref ? (
             <div className="px-6 py-8 border border-white/20" role="status">
               <p className="font-serif text-3xl italic">Votre message est prêt.</p>
@@ -221,22 +193,6 @@ export default function Contact({ orderToken, orderMessage }) {
           </div>
 
           <div className="mt-16">
-            {orderLink ? (
-              <a
-                href={orderLink}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex border border-white px-5 py-3 text-[11px] uppercase tracking-[0.22em] transition hover:bg-white hover:text-black"
-              >
-                Commander via WhatsApp
-              </a>
-            ) : (
-              <p className="max-w-xs text-sm font-light leading-relaxed text-white/55">
-                La commande via WhatsApp sera branchée ici dès que le numéro de l’atelier
-                sera renseigné. En attendant, utilisez le formulaire ou l’e-mail.
-              </p>
-            )}
-
             <ul className="flex gap-3 mt-8">
               {socials.map((social) => (
                 <li key={social.label}>

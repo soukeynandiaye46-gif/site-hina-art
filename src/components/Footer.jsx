@@ -1,7 +1,7 @@
 import { contactDetails, navLinks, socials } from '../data/site'
 import { SocialIcon } from './Icons'
 
-export default function Footer() {
+export default function Footer({ isCartPage, onNavigate }) {
   return (
     <footer className="bg-[#141414] px-5 pb-10 pt-16 text-white sm:px-8">
       <div className="mx-auto grid max-w-[1440px] gap-12 border-t border-white/15 pt-14 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -20,7 +20,14 @@ export default function Footer() {
           <ul className="mt-5 space-y-3">
             {navLinks.map((link) => (
               <li key={link.id}>
-                <a href={link.href} className="text-sm text-white/75 transition hover:text-white">
+                <a
+                  href={link.href}
+                  onClick={isCartPage ? (event) => {
+                    event.preventDefault()
+                    onNavigate(`/${link.href}`)
+                  } : undefined}
+                  className="text-sm text-white/75 transition hover:text-white"
+                >
                   {link.label}
                 </a>
               </li>

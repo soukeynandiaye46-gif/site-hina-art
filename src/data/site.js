@@ -1,22 +1,3 @@
-/**
- * Contenu éditorial et coordonnées de HINA Art.
- * Remplacez les visuels, le téléphone, l'e-mail et les profils sociaux
- * par ceux de la marque avant mise en ligne.
- *
- * WhatsApp : renseignez `number` au format international, chiffres seuls
- * (ex. 33612345678), puis passez `enabled` à true.
- */
-export const whatsapp = {
-  enabled: false,
-  number: '',
-  message: 'Bonjour HINA Art, je souhaite passer une commande.',
-}
-
-export function whatsappUrl(text = whatsapp.message) {
-  if (!whatsapp.enabled || !whatsapp.number) return null
-  return `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(text)}`
-}
-
 export const contactDetails = {
   phone: '+33 1 86 95 20 14',
   phoneHref: 'tel:+33186952014',
